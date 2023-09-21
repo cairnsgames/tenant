@@ -1,6 +1,6 @@
 {
   "name": "@cairnsgames/tenant",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "Global Tenant code management",
   "keywords": [
     "react",
