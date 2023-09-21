@@ -21,7 +21,6 @@ const TenantProvider = ( props: TenantProviderType ) => {
   const [tenant, ] = useState(props.application);
 
   return (
-    // the Provider gives access to the context to its children
     <TenantContext.Provider value={{tenant}}>
       {children}
     </TenantContext.Provider>
