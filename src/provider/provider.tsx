@@ -4,11 +4,12 @@ type KeyValue = {
   key: string;
   value: string;
 };
+type configValuesType = {
+  env: KeyValue[]
+}
 type TenantType = {
   tenant: string
-  config: {
-    env: KeyValue[]
-  }
+  config: configValuesType
 }
 type TenantProviderType = {
   children: React.ReactNode
@@ -20,25 +21,25 @@ type TenantProviderType = {
 const TenantContext = createContext<TenantType>({ tenant: "", config: {env: []} });
 
 const TenantProvider = ( props: TenantProviderType ) => {
-  const { children, config: configFile } = props;
+  const { children, config } = props;
 
   if (!props.application) {
     throw new Error("TenantProvider: application prop is required");
   }
 
   useEffect(() => {
-    if (!configFile) {
+    if (!config) {
       console.warn("No config file provided");
     }
-  }, [configFile]);
+  }, [config]);
 
   const [tenant, ] = useState(props.application);
-  const [config, setConfig] = useState<KeyValue[]>([]);
+  const [configValues, setConfigValues] = useState<configValuesType>({env: []});
   const hostname = window.location.hostname;
 
   const loadConfig = () => {
     // add code here to load config from env (or process.enf if we get webpack working)
-    setConfig([])
+    setConfigValues({ env : []})
   }
 
   if (!config) {
@@ -51,7 +52,7 @@ const TenantProvider = ( props: TenantProviderType ) => {
   }, [hostname, props]);  
 
   return (
-    <TenantContext.Provider value={{tenant, config}}>
+    <TenantContext.Provider value={{tenant, config: configValues}}>
       {children}
     </TenantContext.Provider>
   );

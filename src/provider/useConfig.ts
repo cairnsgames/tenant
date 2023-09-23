@@ -11,7 +11,6 @@ export const useConfig = () => {
       throw new Error("useUserContext was used outside of its Provider");
     }
     const { config } = context || {};
-    config.env = {...config};
   
     return { config, process: config };
   };
