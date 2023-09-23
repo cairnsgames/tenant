@@ -6,7 +6,9 @@ type KeyValue = {
 };
 type TenantType = {
   tenant: string
-  config: KeyValue[]
+  config: {
+    env: KeyValue[]
+  }
 }
 type TenantProviderType = {
   children: React.ReactNode
@@ -15,7 +17,7 @@ type TenantProviderType = {
 }
 
 // create context
-const TenantContext = createContext<TenantType>({ tenant: "", config: [] });
+const TenantContext = createContext<TenantType>({ tenant: "", config: {env: []} });
 
 const TenantProvider = ( props: TenantProviderType ) => {
   const { children, config: configFile } = props;
@@ -35,6 +37,7 @@ const TenantProvider = ( props: TenantProviderType ) => {
   const hostname = window.location.hostname;
 
   const loadConfig = () => {
+    // add code here to load config from env (or process.enf if we get webpack working)
     setConfig([])
   }
 
