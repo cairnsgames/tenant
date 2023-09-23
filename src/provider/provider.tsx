@@ -1,11 +1,7 @@
 import React, { createContext, useState, useEffect } from "react";
 
-type KeyValue = {
-  key: string;
-  value: string;
-};
 type configValuesType = {
-  env: KeyValue[]
+  env: {[key: string]: any[]}
 }
 type TenantType = {
   tenant: string
@@ -18,7 +14,7 @@ type TenantProviderType = {
 }
 
 // create context
-const TenantContext = createContext<TenantType>({ tenant: "", config: {env: []} });
+const TenantContext = createContext<TenantType>({ tenant: "", config: {env: {}} });
 
 const TenantProvider = ( props: TenantProviderType ) => {
   const { children, config } = props;
@@ -34,12 +30,12 @@ const TenantProvider = ( props: TenantProviderType ) => {
   }, [config]);
 
   const [tenant, ] = useState(props.application);
-  const [configValues, setConfigValues] = useState<configValuesType>({env: []});
+  const [configValues, setConfigValues] = useState<configValuesType>({env: {}});
   const hostname = window.location.hostname;
 
   const loadConfig = () => {
     // add code here to load config from env (or process.enf if we get webpack working)
-    setConfigValues({ env : []})
+    setConfigValues({ env : {}})
   }
 
   if (!config) {
