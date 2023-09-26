@@ -1,6 +1,5 @@
-import React, { createContext, useState, useEffect } from "react";
+import React, { createContext, useState } from "react";
 
-}
 type TenantType = {
   tenant: string
 }
@@ -10,7 +9,7 @@ type TenantProviderType = {
 }
 
 // create context
-const TenantContext = createContext<TenantType>({ tenant: "", config: {env: {}} });
+const TenantContext = createContext<TenantType>({ tenant: ""});
 
 const TenantProvider = ( props: TenantProviderType ) => {
   const { children } = props;
@@ -29,4 +28,4 @@ const TenantProvider = ( props: TenantProviderType ) => {
   );
 };
 
-export { TenantContext, TenantProvider };
+export { TenantContext, TenantProvider }
