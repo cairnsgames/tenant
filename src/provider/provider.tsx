@@ -30,7 +30,7 @@ const TenantProvider = ( props: TenantProviderType ) => {
 
   useEffect(() => {
     fetch(process.env.REACT_APP_TENANT_API + "params.php", {
-      headers: { "Content-Type": "application/json", APP_ID: tenant },
+      headers: { "Content-Type": "application/json", "APP_ID": tenant },
     })
       .then((res) => res.json())
       .then((data) => {
