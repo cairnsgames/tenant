@@ -1,17 +1,21 @@
-import React, { createContext, useState } from "react";
+import React, { createContext, useEffect, useState } from "react";
+
+import 'dotenv/config';
 
 type TenantType = {
   tenant: string
   config: any
+  params: any
 }
 type TenantProviderType = {
   children: React.ReactNode
   application: string
   config: any
+  params: any
 }
 
 // create context
-const TenantContext = createContext<TenantType>({ tenant: "", config: {}});
+const TenantContext = createContext<TenantType>({ tenant: "", config: {}, params: []});
 
 const TenantProvider = ( props: TenantProviderType ) => {
   const { children } = props;
@@ -22,9 +26,20 @@ const TenantProvider = ( props: TenantProviderType ) => {
 
   const [tenant, ] = useState(props.application);
   const [configValue, ] = useState(props.config);
+  const [params, setParams] = useState(props.params);
+
+  useEffect(() => {
+    fetch(process.env.REACT_APP_TENANT_API + "params.php?app_id="+tenant, {
+      headers: { "Content-Type": "application/json", APP_ID: tenant },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        setParams(data.params);
+      })
+  }, [tenant]);
 
   return (
-    <TenantContext.Provider value={{tenant, config: configValue}}>
+    <TenantContext.Provider value={{tenant, config: configValue, params}}>
       {children}
     </TenantContext.Provider>
   );

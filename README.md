@@ -32,3 +32,7 @@ const Component = () => {
     console.log("Tenant Code: ", tenant)
 }
 ```
+
+## process.env
+
+REACT_APP_TENANT_API=http://cairnsgames.co.za/dev/php/tenant/
